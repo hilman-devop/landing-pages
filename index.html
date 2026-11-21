@@ -1,0 +1,1346 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Buat Kamu My Biniii Tercinta🩷</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet" />
+
+  <style>
+    :root {
+      --primary: #E8317A;
+      --secondary: #F472B6;
+      --cta: #FB923C;
+      --bg: #FFF0F6;
+      --text: #5B0030;
+      --pink: #FB7185;
+      --pink-light: #FFF1F2;
+      --purple-light: #FFE4F0;
+      --green: #34D399;
+      --clay-shadow: 4px 4px 0px rgba(232, 49, 122, 0.3), 8px 8px 0px rgba(232, 49, 122, 0.1);
+      --clay-shadow-hover: 6px 6px 0px rgba(232, 49, 122, 0.4), 12px 12px 0px rgba(232, 49, 122, 0.15);
+      --radius: 20px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* ========== FLOATING PARTICLES BG ========== */
+    .bg-particles {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .particle {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0.12;
+      animation: floatParticle linear infinite;
+    }
+
+    @keyframes floatParticle {
+      0% {
+        transform: translateY(110vh) rotate(0deg) scale(0.8);
+        opacity: 0;
+      }
+
+      10% {
+        opacity: 0.12;
+      }
+
+      90% {
+        opacity: 0.12;
+      }
+
+      100% {
+        transform: translateY(-10vh) rotate(360deg) scale(1.2);
+        opacity: 0;
+      }
+    }
+
+    /* ========== HEARTS RAIN ========== */
+    .hearts-container {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 1;
+      overflow: hidden;
+      display: none;
+    }
+
+    .hearts-container.active {
+      display: block;
+    }
+
+    .falling-heart {
+      position: absolute;
+      top: -50px;
+      font-size: 24px;
+      animation: fallHeart linear forwards;
+      user-select: none;
+    }
+
+    @keyframes fallHeart {
+      0% {
+        transform: translateY(0) rotate(-15deg) scale(0);
+        opacity: 0;
+      }
+
+      10% {
+        opacity: 1;
+        transform: translateY(5vh) rotate(10deg) scale(1);
+      }
+
+      90% {
+        opacity: 1;
+      }
+
+      100% {
+        transform: translateY(105vh) rotate(-20deg) scale(0.8);
+        opacity: 0;
+      }
+    }
+
+    /* ========== CONFETTI ========== */
+    .confetti-container {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 100;
+      overflow: hidden;
+      display: none;
+    }
+
+    .confetti-container.active {
+      display: block;
+    }
+
+    .confetti-piece {
+      position: absolute;
+      width: 10px;
+      height: 14px;
+      top: -20px;
+      border-radius: 2px;
+      animation: confettiFall cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+    }
+
+    @keyframes confettiFall {
+      0% {
+        transform: translateY(0) rotateZ(0deg) rotateX(0deg);
+        opacity: 1;
+      }
+
+      100% {
+        transform: translateY(110vh) rotateZ(720deg) rotateX(360deg);
+        opacity: 0;
+      }
+    }
+
+    /* ========== LAYOUT ========== */
+    #app {
+      position: relative;
+      z-index: 10;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    /* ========== SCREENS ========== */
+    .screen {
+      display: none;
+      max-width: 520px;
+      width: 100%;
+      animation: slideIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    }
+
+    .screen.active {
+      display: block;
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(40px) scale(0.9);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    /* ========== CARD (CLAY) ========== */
+    .card {
+      background: white;
+      border-radius: 28px;
+      border: 3.5px solid var(--text);
+      box-shadow: var(--clay-shadow);
+      padding: 40px 36px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      height: 8px;
+      background: var(--primary);
+      border-radius: 28px 28px 0 0;
+    }
+
+    /* ========== TYPOGRAPHY ========== */
+    h1 {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 12px;
+      line-height: 1.2;
+    }
+
+    .subtitle {
+      font-size: 1rem;
+      color: #6B7280;
+      margin-bottom: 28px;
+      line-height: 1.7;
+    }
+
+    /* ========== EMOJI BIG ========== */
+    .big-emoji {
+      font-size: 80px;
+      display: block;
+      margin: 0 auto 20px;
+      animation: bounceEmoji 2s ease-in-out infinite;
+      line-height: 1;
+    }
+
+    @keyframes bounceEmoji {
+
+      0%,
+      100% {
+        transform: translateY(0) rotate(-3deg);
+      }
+
+      50% {
+        transform: translateY(-12px) rotate(3deg);
+      }
+    }
+
+    /* ========== PROGRESSION BAR ========== */
+    .progress-bar-wrapper {
+      width: 100%;
+      background: #E8E8F0;
+      border-radius: 99px;
+      height: 10px;
+      margin-bottom: 32px;
+      border: 2px solid var(--text);
+      overflow: hidden;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--primary), var(--pink));
+      border-radius: 99px;
+      transition: width 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    /* ========== BUTTONS ========== */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 14px 28px;
+      border-radius: 16px;
+      border: 3px solid var(--text);
+      font-family: 'Fredoka', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.15s ease-out, box-shadow 0.15s ease-out;
+      text-decoration: none;
+      user-select: none;
+      position: relative;
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+      box-shadow: 4px 4px 0 var(--text);
+    }
+
+    .btn-primary:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 6px 6px 0 var(--text);
+    }
+
+    .btn-primary:active {
+      transform: translate(2px, 2px);
+      box-shadow: 2px 2px 0 var(--text);
+    }
+
+    .btn-pink {
+      background: var(--pink);
+      color: white;
+      box-shadow: 4px 4px 0 var(--text);
+    }
+
+    .btn-pink:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 6px 6px 0 var(--text);
+    }
+
+    .btn-pink:active {
+      transform: translate(2px, 2px);
+      box-shadow: 2px 2px 0 var(--text);
+    }
+
+    .btn-no {
+      background: #E5E7EB;
+      color: #9CA3AF;
+      box-shadow: 4px 4px 0 #D1D5DB;
+      border-color: #D1D5DB;
+      cursor: not-allowed !important;
+      position: fixed;
+      transition: left 0.12s ease-out, top 0.12s ease-out, background 0.1s;
+      z-index: 9999;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      padding: 12px 22px;
+    }
+
+    .btn-no.scared {
+      animation: scaredShake 0.3s ease-in-out;
+    }
+
+    @keyframes scaredShake {
+
+      0%,
+      100% {
+        transform: rotate(0deg);
+      }
+
+      25% {
+        transform: rotate(-5deg) scale(0.95);
+      }
+
+      75% {
+        transform: rotate(5deg) scale(0.95);
+      }
+    }
+
+    /* ========== BUTTON GROUP ========== */
+    .btn-group {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 8px;
+    }
+
+    /* ========== CONFESSION ITEMS ========== */
+    .confession-list {
+      text-align: left;
+      margin: 20px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .confession-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      background: #FFF0F8;
+      border: 2.5px solid var(--secondary);
+      border-radius: 14px;
+      padding: 12px 16px;
+      font-size: 0.95rem;
+      line-height: 1.5;
+      animation: popIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+    }
+
+    .confession-item:nth-child(1) {
+      animation-delay: 0.1s;
+    }
+
+    .confession-item:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+
+    .confession-item:nth-child(3) {
+      animation-delay: 0.3s;
+    }
+
+    .confession-item:nth-child(4) {
+      animation-delay: 0.4s;
+    }
+
+    @keyframes popIn {
+      from {
+        opacity: 0;
+        transform: scale(0.8) translateX(-20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1) translateX(0);
+      }
+    }
+
+    .confession-icon {
+      font-size: 1.3rem;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    /* ========== METER / LOVE GAUGE ========== */
+    .love-gauge-wrapper {
+      margin: 24px 0;
+      text-align: center;
+    }
+
+    .love-gauge-label {
+      font-family: 'Fredoka', sans-serif;
+      font-size: 1rem;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    .love-gauge {
+      width: 100%;
+      height: 28px;
+      background: #FFE4E6;
+      border: 3px solid var(--text);
+      border-radius: 99px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .love-gauge-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #FB7185, #F43F5E, #FB7185);
+      background-size: 200% 100%;
+      border-radius: 99px;
+      animation: shimmerGauge 2s ease-in-out infinite, fillGauge 1.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+      width: 0%;
+    }
+
+    @keyframes shimmerGauge {
+
+      0%,
+      100% {
+        background-position: 0% 50%;
+      }
+
+      50% {
+        background-position: 100% 50%;
+      }
+    }
+
+    @keyframes fillGauge {
+      0% {
+        width: 0%;
+      }
+
+      100% {
+        width: var(--fill-to, 85%);
+      }
+    }
+
+    .love-gauge-hearts {
+      position: absolute;
+      top: 50%;
+      right: 10px;
+      transform: translateY(-50%);
+      font-size: 14px;
+      z-index: 2;
+    }
+
+    /* ========== TYPING EFFECT ========== */
+    .typing-text {
+      font-size: 1.05rem;
+      color: var(--text);
+      line-height: 1.8;
+      text-align: center;
+      min-height: 60px;
+    }
+
+    .cursor-blink {
+      display: inline-block;
+      width: 2px;
+      height: 1em;
+      background: var(--primary);
+      margin-left: 2px;
+      vertical-align: text-bottom;
+      animation: blink 0.7s step-end infinite;
+    }
+
+    @keyframes blink {
+
+      0%,
+      100% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 0;
+      }
+    }
+
+    /* ========== PINKY PROMISE ========== */
+    .pinky-box {
+      background: linear-gradient(135deg, #FFF1F2, #EDE9FF);
+      border: 3px solid var(--pink);
+      border-radius: 20px;
+      padding: 20px 24px;
+      margin: 20px 0;
+      position: relative;
+    }
+
+    .pinky-box::after {
+      content: '🤙';
+      position: absolute;
+      top: -20px;
+      right: 20px;
+      font-size: 32px;
+      animation: rotate360 3s linear infinite;
+    }
+
+    @keyframes rotate360 {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    .promise-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 0;
+      font-size: 0.95rem;
+      border-bottom: 1.5px dashed #FCA5A5;
+    }
+
+    .promise-item:last-child {
+      border-bottom: none;
+    }
+
+    /* ========== SUCCESS STATE ========== */
+    .success-glow {
+      animation: successGlow 2s ease-in-out infinite;
+    }
+
+    @keyframes successGlow {
+
+      0%,
+      100% {
+        box-shadow: var(--clay-shadow), 0 0 20px rgba(52, 211, 153, 0.3);
+      }
+
+      50% {
+        box-shadow: var(--clay-shadow), 0 0 40px rgba(52, 211, 153, 0.6);
+      }
+    }
+
+    /* ========== COUNTER ========== */
+    .tries-counter {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: white;
+      border: 2.5px solid var(--text);
+      border-radius: 14px;
+      padding: 8px 14px;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 0.9rem;
+      box-shadow: 3px 3px 0 var(--text);
+      z-index: 1000;
+      display: none;
+    }
+
+    .tries-counter.active {
+      display: block;
+    }
+
+    /* ========== TOOLTIP no button ========== */
+    .no-tooltip {
+      position: fixed;
+      background: #1E1B4B;
+      color: white;
+      padding: 6px 12px;
+      border-radius: 10px;
+      font-family: 'Nunito', sans-serif;
+      font-size: 0.8rem;
+      pointer-events: none;
+      z-index: 9998;
+      opacity: 0;
+      transition: opacity 0.2s;
+      white-space: nowrap;
+    }
+
+    /* ========== PHONE MOCKUP for screen 2 ========== */
+    .chat-bubble-container {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin: 20px 0;
+      text-align: left;
+    }
+
+    .chat-bubble {
+      max-width: 85%;
+      padding: 10px 14px;
+      border-radius: 18px;
+      font-size: 0.9rem;
+      line-height: 1.5;
+      animation: popIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+    }
+
+    .chat-bubble.me {
+      background: var(--primary);
+      color: white;
+      border-radius: 18px 18px 4px 18px;
+      align-self: flex-end;
+      margin-left: auto;
+      box-shadow: 3px 3px 0 rgba(79, 70, 229, 0.3);
+    }
+
+    .chat-bubble.them {
+      background: #F3F4F6;
+      color: var(--text);
+      border-radius: 18px 18px 18px 4px;
+      border: 2px solid #E5E7EB;
+      box-shadow: 3px 3px 0 #E5E7EB;
+    }
+
+    .chat-bubble:nth-child(1) {
+      animation-delay: 0.1s;
+    }
+
+    .chat-bubble:nth-child(2) {
+      animation-delay: 0.4s;
+    }
+
+    .chat-bubble:nth-child(3) {
+      animation-delay: 0.8s;
+    }
+
+    .chat-bubble:nth-child(4) {
+      animation-delay: 1.2s;
+    }
+
+    /* ========== STARS ========== */
+    .star-rating {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      margin: 16px 0;
+      font-size: 2rem;
+    }
+
+    .star {
+      display: inline-block;
+      animation: starPop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+      cursor: default;
+    }
+
+    .star:nth-child(1) {
+      animation-delay: 0.2s;
+    }
+
+    .star:nth-child(2) {
+      animation-delay: 0.35s;
+    }
+
+    .star:nth-child(3) {
+      animation-delay: 0.5s;
+    }
+
+    .star:nth-child(4) {
+      animation-delay: 0.65s;
+    }
+
+    .star:nth-child(5) {
+      animation-delay: 0.8s;
+    }
+
+    @keyframes starPop {
+      from {
+        opacity: 0;
+        transform: scale(0) rotate(-30deg);
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1) rotate(0deg);
+      }
+    }
+
+    /* ========== STEP DOTS ========== */
+    .step-dots {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      margin-bottom: 24px;
+    }
+
+    .step-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #E5E7EB;
+      border: 2px solid #D1D5DB;
+      transition: all 0.3s ease;
+    }
+
+    .step-dot.active {
+      background: var(--primary);
+      border-color: var(--primary);
+      width: 24px;
+      border-radius: 6px;
+    }
+
+    .step-dot.done {
+      background: var(--green);
+      border-color: var(--green);
+    }
+
+    /* ========== RESPONSIVE ========== */
+    @media (max-width: 480px) {
+      .card {
+        padding: 28px 20px;
+      }
+
+      h1 {
+        font-size: 1.6rem;
+      }
+
+      .big-emoji {
+        font-size: 60px;
+      }
+
+      .btn {
+        padding: 12px 20px;
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- BG Particles -->
+  <div class="bg-particles" id="bgParticles"></div>
+
+  <!-- Hearts Rain -->
+  <div class="hearts-container" id="heartsContainer"></div>
+
+  <!-- Confetti -->
+  <div class="confetti-container" id="confettiContainer"></div>
+
+  <!-- Tries Counter -->
+  <div class="tries-counter" id="triesCounter">
+    🏃 Kabur: <span id="triesCount">0</span>x
+  </div>
+
+  <!-- No Tooltip -->
+  <div class="no-tooltip" id="noTooltip">Lah ngapain diklik ini 😤</div>
+
+  <!-- Main App -->
+  <div id="app">
+
+    <!-- ===== SCREEN 1: INTRO ===== -->
+    <div class="screen active" id="screen1">
+      <div class="card">
+        <span class="big-emoji" id="introEmoji">😔</span>
+        <h1>Aku mau ngaku<br />sesuatu... 😶</h1>
+        <p class="subtitle">
+          Ini tentang kemaren. Aku tau kamu marah.<br />
+          Tolong bacain sampe abis dulu ya, please? 🥺
+        </p>
+
+        <div class="step-dots">
+          <div class="step-dot active" id="dot1"></div>
+          <div class="step-dot" id="dot2"></div>
+          <div class="step-dot" id="dot3"></div>
+          <div class="step-dot" id="dot4"></div>
+          <div class="step-dot" id="dot5"></div>
+        </div>
+
+        <button class="btn btn-primary" onclick="goToScreen(2)" id="btnStart">
+          Oke... aku dengerin 👂
+        </button>
+      </div>
+    </div>
+
+    <!-- ===== SCREEN 2: CONFESSION ===== -->
+    <div class="screen" id="screen2">
+      <div class="card">
+        <span class="big-emoji">😬</span>
+        <h1>Oke fine, aku akuin...</h1>
+        <p class="subtitle">Ini parah. Aku tau. Tapi dengerin dulu yaa 🙏</p>
+
+        <div class="confession-list">
+          <div class="confession-item">
+            <span class="confession-icon">🌙</span>
+            <span>Waktu bangunin kamu sahur, ada temenku di situ — dan aku <strong>nggak ngucapin "sayang"</strong> ke
+              kamu</span>
+          </div>
+          <div class="confession-item">
+            <span class="confession-icon">😶</span>
+            <span>Aku pake alasan lagi di cafe ada temen lah ini itu lah, padahal itu <strong>nggak bisa dijadiin
+                alasan</strong> sama sekali</span>
+          </div>
+          <div class="confession-item">
+            <span class="confession-icon">💔</span>
+            <span>Kamu ngerasa aku <strong>malu punya kamu</strong> — dan itu... bikin aku ngerasa jadi orang paling
+              bodoh sedunia</span>
+          </div>
+          <div class="confession-item">
+            <span class="confession-icon">🫣</span>
+            <span>Padahal biasanya <strong>aku selalu manggil "sayang"</strong>. Itu bikin aku sadar kalau aku udah
+              bikin kamu ngga nyaman... 🥺</span>
+          </div>
+        </div>
+
+        <div class="step-dots">
+          <div class="step-dot done" id="dot1-2"></div>
+          <div class="step-dot active" id="dot2-2"></div>
+          <div class="step-dot" id="dot3-2"></div>
+          <div class="step-dot" id="dot4-2"></div>
+          <div class="step-dot" id="dot5-2"></div>
+        </div>
+
+        <button class="btn btn-primary" onclick="goToScreen(3)">
+          Terus... ada lagi? 😢
+        </button>
+      </div>
+    </div>
+
+    <!-- ===== SCREEN 3: WHAT I FEEL ===== -->
+    <div class="screen" id="screen3">
+      <div class="card">
+        <span class="big-emoji">❤️</span>
+        <h1>Yang perlu kamu tau<br />sebenarnya...</h1>
+
+        <div class="typing-text" id="typingText">
+          <span id="typingContent"></span><span class="cursor-blink"></span>
+        </div>
+
+        <div class="love-gauge-wrapper" id="loveGaugeWrapper" style="display:none">
+          <div class="love-gauge-label">Rasa sayang aku ke kamu (beneran):</div>
+          <div class="love-gauge">
+            <div class="love-gauge-fill" style="--fill-to: 100%"></div>
+            <span class="love-gauge-hearts">💗💗💗</span>
+          </div>
+        </div>
+
+        <div class="step-dots">
+          <div class="step-dot done"></div>
+          <div class="step-dot done"></div>
+          <div class="step-dot active"></div>
+          <div class="step-dot"></div>
+          <div class="step-dot"></div>
+        </div>
+
+        <button class="btn btn-primary" onclick="goToScreen(4)" id="btnScreen3Next" style="display:none">
+          Iya tapi kamu masih salah! 😤
+        </button>
+      </div>
+    </div>
+
+    <!-- ===== SCREEN 4: PROMISE ===== -->
+    <div class="screen" id="screen4">
+      <div class="card">
+        <span class="big-emoji">🤝</span>
+        <h1>Janji aku ke kamu</h1>
+        <p class="subtitle">Ini bukan basa-basi. Ini serius. Pinky promise level. 🫶</p>
+
+        <div class="pinky-box">
+          <div class="promise-item">
+            <span>🌙</span>
+            <span>Mulai sekarang, ada temen kek, ada presiden kek — aku tetap bilang <strong>"sayang"</strong> ke
+              kamu</span>
+          </div>
+          <div class="promise-item">
+            <span>📣</span>
+            <span>Aku nggak akan pernah bikin kamu ngerasa <strong>disembunyiin</strong> lagi. Kamu itu kebanggaan
+              aku</span>
+          </div>
+          <div class="promise-item">
+            <span>🌙</span>
+            <span>Setiap aku telfon kamu sahur, aku akan pastiin kamu tau betapa <strong>berharganya</strong> itu buat
+              aku</span>
+          </div>
+          <div class="promise-item">
+            <span>💝</span>
+            <span>Dan aku janji — rasa sayang aku ke kamu nggak pernah tergantung <strong>siapa yang lagi ada di
+                situ</strong></span>
+          </div>
+        </div>
+
+        <div class="step-dots">
+          <div class="step-dot done"></div>
+          <div class="step-dot done"></div>
+          <div class="step-dot done"></div>
+          <div class="step-dot active"></div>
+          <div class="step-dot"></div>
+        </div>
+
+        <button class="btn btn-pink" onclick="goToScreen(5)">
+          Hmm... masih belum tentu nih 😤
+        </button>
+      </div>
+    </div>
+
+    <!-- ===== SCREEN 5: THE CHOICE ===== -->
+    <div class="screen" id="screen5">
+      <div class="card" id="choiceCard">
+        <span class="big-emoji" id="choiceEmoji">🥺</span>
+        <h1 id="choiceTitle">Jadi... mau maafin aku ga?</h1>
+        <p class="subtitle" id="choiceSubtitle">
+          Aku tau "sayang" waktu itu cuma dua kata.<br />
+          Tapi buat kamu, itu segalanya. Dan aku nyesel banget. 💙
+        </p>
+
+        <div class="star-rating">
+          <span class="star">⭐</span>
+          <span class="star">⭐</span>
+          <span class="star">⭐</span>
+          <span class="star">⭐</span>
+          <span class="star">⭐</span>
+        </div>
+
+        <p style="font-size:0.85rem; color:#9CA3AF; margin-bottom: 20px; font-style: italic;">
+          ⭐ Rating: Pacar yang harusnya lebih berani bilang sayang kapanpun dimanapun (5/5)
+        </p>
+
+        <div class="step-dots">
+          <div class="step-dot done"></div>
+          <div class="step-dot done"></div>
+          <div class="step-dot done"></div>
+          <div class="step-dot done"></div>
+          <div class="step-dot active"></div>
+        </div>
+
+        <div class="btn-group">
+          <button class="btn btn-pink" onclick="onForgiven()" id="btnYes">
+            🩷 Iya... aku maafin
+          </button>
+        </div>
+        <div style="margin-top: 14px;">
+          <small style="color: #9CA3AF; font-size: 0.8rem;">ps: ada tombol lain tapi lagi... sibuk 🏃‍♂️💨</small>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== SCREEN 6: FORGIVEN ===== -->
+    <div class="screen" id="screen6">
+      <div class="card success-glow">
+        <span class="big-emoji" style="animation: none; display: block; font-size: 100px; margin-bottom: 16px;"
+          id="successEmoji">🥰</span>
+        <h1 style="font-size: 2.2rem; color: var(--pink);">HOREEE dimaafin!! 🎉</h1>
+        <p class="subtitle">
+          Makasiiih! Aku janji, peristiwa sahur itu<br />
+          cuma terjadi sekali. Besok-besok, <strong>"sayang"</strong>-nya<br />
+          bakal aku teriakin ke seluruh dunia kalau perlu. 💕
+        </p>
+
+        <div
+          style="background: linear-gradient(135deg, #FFF1F2, #EDE9FF); border: 3px solid var(--pink); border-radius: 20px; padding: 20px; margin: 20px 0;">
+          <p style="font-family: 'Fredoka', sans-serif; font-size: 1.2rem; color: var(--primary);">
+            "Mulai malam ini — sahur, siang, malem,<br />depan siapapun — kamu akan selalu
+            denger<br /><strong>sayang</strong> dari aku." 🌙✨
+          </p>
+        </div>
+
+        <div class="star-rating" style="font-size: 2.5rem;">
+          <span class="star" style="animation-delay: 0.1s;">💖</span>
+          <span class="star" style="animation-delay: 0.25s;">💖</span>
+          <span class="star" style="animation-delay: 0.4s;">💖</span>
+          <span class="star" style="animation-delay: 0.55s;">💖</span>
+          <span class="star" style="animation-delay: 0.7s;">💖</span>
+        </div>
+
+        <button class="btn btn-primary" onclick="restartExperience()" style="margin-top: 20px;">
+          Ulang lagi? 🔄
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- THE RUNAWAY "NGGA" BUTTON -->
+  <button class="btn btn-no" id="btnNo" style="display:none;">
+    😤 Ngga mau maafin
+  </button>
+
+  <script>
+    // ============================================
+    // PARTICLES BACKGROUND
+    // ============================================
+    (function initParticles() {
+      const container = document.getElementById('bgParticles');
+      const colors = ['#818CF8', '#FB7185', '#F97316', '#34D399', '#4F46E5'];
+      for (let i = 0; i < 15; i++) {
+        const p = document.createElement('div');
+        p.className = 'particle';
+        const size = Math.random() * 80 + 30;
+        p.style.cssText = `
+          width: ${size}px;
+          height: ${size}px;
+          background: ${colors[Math.floor(Math.random() * colors.length)]};
+          left: ${Math.random() * 100}%;
+          animation-duration: ${Math.random() * 15 + 10}s;
+          animation-delay: ${Math.random() * 10}s;
+        `;
+        container.appendChild(p);
+      }
+    })();
+
+    // ============================================
+    // SCREEN NAVIGATION
+    // ============================================
+    let currentScreen = 1;
+
+    function goToScreen(n) {
+      const prev = document.getElementById('screen' + currentScreen);
+      prev.classList.remove('active');
+
+      setTimeout(() => {
+        const next = document.getElementById('screen' + n);
+        next.classList.add('active');
+        currentScreen = n;
+
+        if (n === 3) startTypingEffect();
+        if (n === 5) {
+          showNoButton();
+          startHeartsRain();
+        }
+      }, 100);
+    }
+
+    // ============================================
+    // TYPING EFFECT - SCREEN 3
+    // ============================================
+    const typingMessages = [
+      "Aku sayang kamu.",
+      "Beneran, dari dulu.",
+      "Waktu itu bukan karena aku malu punya kamu.",
+      "Aku cuma belom terbiasa, dan itu bodoh banget dari aku. 😔",
+      "Bukan aku yang kayak biasanya...",
+      "...dan aku nggak bilang sayang. Aku nyesel banget. ❤️"
+    ];
+
+    function startTypingEffect() {
+      const el = document.getElementById('typingContent');
+      const btn = document.getElementById('btnScreen3Next');
+      const gauge = document.getElementById('loveGaugeWrapper');
+      let msgIdx = 0;
+      let charIdx = 0;
+      let fullText = '';
+
+      function type() {
+        if (msgIdx >= typingMessages.length) {
+          setTimeout(() => {
+            gauge.style.display = 'block';
+            setTimeout(() => btn.style.display = 'inline-flex', 1500);
+          }, 500);
+          return;
+        }
+
+        const msg = typingMessages[msgIdx];
+        if (charIdx < msg.length) {
+          el.textContent = fullText + msg.slice(0, charIdx + 1);
+          charIdx++;
+          setTimeout(type, 45);
+        } else {
+          fullText += msg + '\n';
+          el.textContent = fullText;
+          el.style.whiteSpace = 'pre-line';
+          msgIdx++;
+          charIdx = 0;
+          setTimeout(type, 600);
+        }
+      }
+
+      type();
+    }
+
+    // ============================================
+    // RUNAWAY "NGGA" BUTTON
+    // ============================================
+    let noBtn = null;
+    let tries = 0;
+    let noTooltipTimeout = null;
+    const tooltips = [
+      "Eh, mau kemana? 😤",
+      "Lah deketin terus 🏃‍♂️",
+      "Tombol ini emang pengecut wkwkwk 😂",
+      "Udah capek nguber belom? maafin aja sini~ 🥺",
+      "Aku juga ngga mau kamu kesel, tapi tetep ngga bisa diklik! 💙",
+      "Kamu kekeuh banget, mirip banget sama yang bangunin sahur tengah malem 😩",
+      "Tapi bedanya aku yang tengah malem itu BILANG SAYANG terus! mulai detik ini 🚀",
+      "OMG kamu keras kepala tapi cute 🥺 tp tombolnya tetep kabur!",
+      "Okay mulai capek nih tombolnya, sama kayak kamu yang capek karena aku �",
+      "UDAH KLIK YANG ITUUU!! hehe 💕"
+    ];
+
+    function showNoButton() {
+      noBtn = document.getElementById('btnNo');
+      noBtn.style.display = 'inline-flex';
+      placeNoBtnRandom();
+
+      document.getElementById('triesCounter').classList.add('active');
+
+      // Mouse move dodge
+      document.addEventListener('mousemove', dodgeFromCursor);
+      // Touch dodge
+      document.addEventListener('touchmove', dodgeFromTouch, { passive: true });
+
+      // Hover attempt
+      noBtn.addEventListener('mouseenter', onNoBtnApproach);
+      noBtn.addEventListener('touchstart', onNoBtnApproach);
+    }
+
+    function placeNoBtnRandom(avoidX, avoidY) {
+      const margin = 80;
+      const maxX = window.innerWidth - 200;
+      const maxY = window.innerHeight - 60;
+
+      let x, y, attempts = 0;
+      do {
+        x = margin + Math.random() * (maxX - margin);
+        y = margin + Math.random() * (maxY - margin);
+        attempts++;
+      } while (
+        avoidX !== undefined &&
+        Math.abs(x - avoidX) < 250 && Math.abs(y - avoidY) < 120 &&
+        attempts < 20
+      );
+
+      noBtn.style.left = x + 'px';
+      noBtn.style.top = y + 'px';
+    }
+
+    function dodgeFromCursor(e) {
+      if (!noBtn || noBtn.style.display === 'none') return;
+      const rect = noBtn.getBoundingClientRect();
+      const btnCenterX = rect.left + rect.width / 2;
+      const btnCenterY = rect.top + rect.height / 2;
+      const dist = Math.hypot(e.clientX - btnCenterX, e.clientY - btnCenterY);
+
+      if (dist < 130) {
+        onNoBtnApproach(e);
+      }
+    }
+
+    function dodgeFromTouch(e) {
+      if (!e.touches[0]) return;
+      const t = e.touches[0];
+      dodgeFromCursor({ clientX: t.clientX, clientY: t.clientY });
+    }
+
+    function onNoBtnApproach(e) {
+      tries++;
+      document.getElementById('triesCount').textContent = tries;
+
+      noBtn.classList.add('scared');
+      setTimeout(() => noBtn.classList.remove('scared'), 300);
+
+      // Show random tooltip
+      const tip = document.getElementById('noTooltip');
+      const tooltipText = tooltips[Math.min(tries - 1, tooltips.length - 1)];
+      tip.textContent = tooltipText;
+
+      const rect = noBtn.getBoundingClientRect();
+      tip.style.left = (rect.left + rect.width / 2 - 80) + 'px';
+      tip.style.top = (rect.top - 40) + 'px';
+      tip.style.opacity = '1';
+
+      clearTimeout(noTooltipTimeout);
+      noTooltipTimeout = setTimeout(() => { tip.style.opacity = '0'; }, 1500);
+
+      // Move away
+      const ex = e.clientX || (rect.left + rect.width / 2);
+      const ey = e.clientY || (rect.top + rect.height / 2);
+      placeNoBtnRandom(ex, ey);
+
+      // Increase desperation in choice screen
+      if (tries === 3) {
+        document.getElementById('choiceTitle').textContent = 'Aku tau kamu masih kesel... 🥺';
+        document.getElementById('choiceEmoji').textContent = '😭';
+      } else if (tries === 5) {
+        document.getElementById('choiceTitle').textContent = 'Aku serius nyesel soal sahur itu... 😢';
+        document.getElementById('choiceEmoji').textContent = '🙏';
+        document.getElementById('choiceSubtitle').textContent = 'Dua kata "sayang" itu harusnya aku ucapin tanpa mikir dua kali, depan siapapun. Maafin aku ya... 💙';
+      } else if (tries >= 8) {
+        document.getElementById('choiceTitle').textContent = 'SAYANG, AKU NYESEL BANGET 😭 please maafin aku~';
+        document.getElementById('choiceEmoji').textContent = '🫠';
+      }
+    }
+
+    // ============================================
+    // HEARTS RAIN
+    // ============================================
+    let heartsInterval = null;
+
+    function startHeartsRain() {
+      const container = document.getElementById('heartsContainer');
+      container.classList.add('active');
+      const emojis = ['🩷', '💙', '✨', '💫', '🌸', '💕', '🫶'];
+
+      heartsInterval = setInterval(() => {
+        const h = document.createElement('div');
+        h.className = 'falling-heart';
+        h.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+        h.style.left = Math.random() * 100 + 'vw';
+        h.style.animationDuration = (Math.random() * 3 + 3) + 's';
+        h.style.fontSize = (Math.random() * 16 + 16) + 'px';
+        container.appendChild(h);
+        setTimeout(() => h.remove(), 7000);
+      }, 400);
+    }
+
+    function stopHeartsRain() {
+      clearInterval(heartsInterval);
+    }
+
+    // ============================================
+    // CONFETTI
+    // ============================================
+    function launchConfetti() {
+      const container = document.getElementById('confettiContainer');
+      container.classList.add('active');
+      const colors = ['#4F46E5', '#FB7185', '#F97316', '#34D399', '#818CF8', '#FCD34D', '#EC4899'];
+
+      for (let i = 0; i < 100; i++) {
+        const c = document.createElement('div');
+        c.className = 'confetti-piece';
+        c.style.left = Math.random() * 100 + 'vw';
+        c.style.background = colors[Math.floor(Math.random() * colors.length)];
+        c.style.animationDuration = (Math.random() * 2 + 2) + 's';
+        c.style.animationDelay = Math.random() * 0.5 + 's';
+        c.style.width = (Math.random() * 8 + 6) + 'px';
+        c.style.height = (Math.random() * 12 + 8) + 'px';
+        c.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+        c.style.transform = `rotate(${Math.random() * 360}deg)`;
+        container.appendChild(c);
+        setTimeout(() => c.remove(), 5000);
+      }
+
+      setTimeout(() => container.classList.remove('active'), 5000);
+    }
+
+    // ============================================
+    // FORGIVEN!
+    // ============================================
+    function onForgiven() {
+      // Cleanup
+      document.removeEventListener('mousemove', dodgeFromCursor);
+      document.removeEventListener('touchmove', dodgeFromTouch);
+      stopHeartsRain();
+      if (noBtn) noBtn.style.display = 'none';
+      document.getElementById('triesCounter').style.display = 'none';
+      document.getElementById('no-tooltip') && (document.getElementById('noTooltip').style.opacity = '0');
+
+      // Launch celebrations
+      launchConfetti();
+
+      // Go to success screen
+      goToScreen(6);
+
+      // Animate the success emoji
+      setTimeout(() => {
+        const emoji = document.getElementById('successEmoji');
+        emoji.style.animation = 'bounceEmoji 1s ease-in-out infinite';
+        // Keep hearts but softer
+        const hc = document.getElementById('heartsContainer');
+        hc.classList.add('active');
+        setTimeout(stopHeartsRain, 5000);
+        startHeartsRain();
+        setTimeout(stopHeartsRain, 5000);
+      }, 300);
+    }
+
+    // ============================================
+    // RESTART
+    // ============================================
+    function restartExperience() {
+      // Cleanup
+      document.removeEventListener('mousemove', dodgeFromCursor);
+      document.removeEventListener('touchmove', dodgeFromTouch);
+      stopHeartsRain();
+      tries = 0;
+      document.getElementById('triesCount').textContent = '0';
+
+      if (noBtn) noBtn.style.display = 'none';
+      document.getElementById('triesCounter').classList.remove('active');
+      document.getElementById('heartsContainer').classList.remove('active');
+      document.getElementById('heartsContainer').innerHTML = '';
+      document.getElementById('confettiContainer').innerHTML = '';
+
+      // Reset to screen 1
+      document.getElementById('screen' + currentScreen).classList.remove('active');
+      currentScreen = 1;
+      document.getElementById('screen1').classList.add('active');
+
+      // Reset screen 3 typing
+      document.getElementById('typingContent').textContent = '';
+      document.getElementById('loveGaugeWrapper').style.display = 'none';
+      document.getElementById('btnScreen3Next').style.display = 'none';
+
+      // Reset choice screen
+      document.getElementById('choiceTitle').textContent = 'Jadi... mau maafin aku?';
+      document.getElementById('choiceEmoji').textContent = '🥺';
+      document.getElementById('choiceSubtitle').textContent = 'Aku tau aku salah. Aku tau mungkin kamu masih kesal.\nTapi aku sayang kamu, beneran. 💙';
+    }
+
+    // ============================================
+    // INTRO EMOJI CYCLE
+    // ============================================
+    (function introEmojiCycle() {
+      const emojis = ['😔', '🥺', '😣', '💙'];
+      let i = 0;
+      setInterval(() => {
+        i = (i + 1) % emojis.length;
+        const el = document.getElementById('introEmoji');
+        if (el) el.textContent = emojis[i];
+      }, 1500);
+    })();
+  </script>
+</body>
+
+</html>

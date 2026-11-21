@@ -1,0 +1,407 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Fredoka:wght@500;600&display=swap');
+
+:root {
+    --primary: #FF71B5;     /* Hot Pink */
+    --primary-glow: #F9A8D4; /* Soft Pink Glow */
+    --secondary: #A78BFA;   /* Lilac Purple */
+    --dark: #0A0410;        /* Extremely deep violet almost black */
+    --text: #FFFFFF;
+    --text-muted: #FDE6F0;  
+    --glass-bg: rgba(255, 255, 255, 0.05);
+    --glass-border: rgba(255, 255, 255, 0.15);
+    --bubble-bg: rgba(255, 255, 255, 0.9);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    background: var(--dark);
+    color: var(--text);
+    font-family: 'Outfit', sans-serif;
+    overflow: hidden;
+    height: 100vh;
+    width: 100vw;
+}
+
+/* --- AMBIENT BACKGROUND GLOW --- */
+.ambient-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(100px);
+    opacity: 0.5;
+    animation: floatingOrb 15s ease-in-out infinite alternate;
+}
+
+.orb-1 {
+    width: 500px; height: 500px;
+    background: var(--primary);
+    top: -200px; left: -100px;
+}
+
+.orb-2 {
+    width: 400px; height: 400px;
+    background: var(--secondary);
+    bottom: -150px; right: -50px;
+    animation-direction: alternate-reverse;
+    animation-duration: 20s;
+}
+
+.orb-3 {
+    width: 300px; height: 300px;
+    background: #FF2B7A;
+    top: 40%; left: 30%;
+    opacity: 0.3;
+    animation-duration: 12s;
+}
+
+@keyframes floatingOrb {
+    0% { transform: translate(0, 0) scale(1); }
+    50% { transform: translate(30px, 50px) scale(1.1); }
+    100% { transform: translate(-30px, -20px) scale(0.9); }
+}
+
+#app {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    z-index: 5;
+}
+
+/* --- STAGE LAYOUT --- */
+.stage {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 1.5s cubic-bezier(0.4, 0, 0.2, 1), visibility 1.5s;
+    z-index: 1;
+}
+
+.stage.active {
+    opacity: 1;
+    visibility: visible;
+    z-index: 10;
+}
+
+/* --- STAGE 1: MATRIX INTRO --- */
+#stage-matrix {
+    /* Slightly darken matrix background to let rain pop */
+    background: rgba(10, 4, 16, 0.8);
+    backdrop-filter: blur(10px);
+}
+
+#matrixCanvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 0;
+    opacity: 0.8;
+}
+
+.overlay {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#countdown {
+    font-family: 'Fredoka', cursive;
+    font-size: 15rem;
+    font-weight: 600;
+    color: var(--text);
+    text-shadow: 0 0 30px var(--primary), 0 0 60px var(--primary);
+    background: linear-gradient(to bottom, #FFFFFF 0%, #F9A8D4 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 0 20px rgba(255, 113, 181, 0.6));
+}
+
+.glitch-title {
+    font-family: 'Fredoka', cursive;
+    font-size: 4rem;
+    line-height: 1.2;
+    letter-spacing: 3px;
+    color: var(--text);
+    font-weight: 600;
+    text-shadow: 0 0 20px var(--primary);
+    background: linear-gradient(135deg, #FFFFFF 0%, #FF71B5 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0px 8px 15px rgba(255, 113, 181, 0.4));
+}
+
+/* --- STAGE 2: UNLOCK (GLASS ENVELOPE) --- */
+.unlock-container {
+    text-align: center;
+}
+
+.envelope-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: 30px;
+    padding: 60px 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4), inset 0 0 0 1px rgba(255, 255, 255, 0.2);
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    animation: gentleBounce 3s ease-in-out infinite alternate;
+}
+
+.envelope-card:hover {
+    transform: scale(1.08) translateY(-10px);
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: 0 40px 80px rgba(255, 113, 181, 0.3), inset 0 0 0 2px var(--primary);
+}
+
+.envelope-card .emoji {
+    font-size: 6rem;
+    margin-bottom: 20px;
+    filter: drop-shadow(0 10px 15px rgba(0,0,0,0.3));
+    animation: heartbeat 2s infinite;
+}
+
+.envelope-card .text {
+    font-family: 'Fredoka', cursive;
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: var(--text);
+    letter-spacing: 1px;
+}
+
+@keyframes gentleBounce {
+    from { transform: translateY(0); }
+    to { transform: translateY(-15px); }
+}
+
+@keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    15% { transform: scale(1.15); }
+    30% { transform: scale(1); }
+    45% { transform: scale(1.15); }
+}
+
+/* --- STAGE 3: GALLERY (POLAROID BOOK) --- */
+.gallery-container {
+    width: 85%;
+    max-width: 420px;
+    height: 75vh;
+    position: relative;
+    perspective: 2500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.slides {
+    width: 100%;
+    height: 70%;
+    position: relative;
+    transform-style: preserve-3d;
+    margin-bottom: 40px;
+}
+
+.photo-card {
+    position: absolute;
+    inset: 0;
+    background: rgba(255, 255, 255, 0.95);
+    padding: 16px;
+    padding-bottom: 50px; /* Polaroid bottom heavy */
+    border-radius: 20px;
+    box-shadow: -10px 20px 40px rgba(0,0,0,0.4), inset 0 0 0 1px rgba(255,255,255,0.8);
+    display: flex;
+    flex-direction: column;
+    transform-origin: left center;
+    user-select: none;
+    backface-visibility: hidden;
+}
+
+.photo-card::after {
+    content: '✨';
+    position: absolute;
+    bottom: 12px;
+    right: 20px;
+    font-size: 1.2rem;
+    opacity: 0.5;
+}
+
+.photo-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
+}
+
+/* Beautiful Chat Bubble */
+.caption-container {
+    width: 110%;
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    bottom: 15%;
+    left: -5%;
+    z-index: 50;
+    pointer-events: none;
+}
+
+.chat-bubble {
+    background: var(--bubble-bg);
+    color: var(--dark);
+    font-family: 'Fredoka', cursive;
+    padding: 18px 28px;
+    border-radius: 24px 24px 24px 6px; 
+    font-size: 1.15rem;
+    font-weight: 500;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+    border: 3px solid #FFCDE1;
+    max-width: 90%;
+    text-align: center;
+    position: relative;
+    animation: popInBounce 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.chat-bubble::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0px;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 20px 20px 0 0;
+    border-color: #FFCDE1 transparent transparent transparent;
+    z-index: -1;
+}
+
+@keyframes popInBounce {
+    0% { opacity: 0; transform: scale(0.6) translateY(30px); }
+    70% { transform: scale(1.05) translateY(-5px); }
+    100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.gallery-nav {
+    position: absolute;
+    bottom: 2%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    z-index: 100;
+}
+
+.btn-next {
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    color: white;
+    border: none;
+    padding: 16px 50px;
+    border-radius: 99px;
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 10px 30px rgba(255, 113, 181, 0.5), inset 0 2px 0 rgba(255,255,255,0.3);
+    transition: all 0.2s;
+    letter-spacing: 1px;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.btn-next:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 35px rgba(255, 113, 181, 0.6);
+}
+
+.btn-next:active {
+    transform: scale(0.95);
+}
+
+/* --- STAGE 4: FINALE --- */
+#stage-finale {
+    background: transparent; /* Lets ambient orbs show through heavily */
+}
+
+#stars-bg {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+}
+
+.star {
+    position: absolute;
+    background: white;
+    border-radius: 50%;
+    opacity: 0.5;
+    animation: twinkle 3s infinite alternate;
+}
+
+@keyframes twinkle {
+    from { opacity: 0.1; transform: scale(0.5); }
+    to { opacity: 1; transform: scale(1.5); box-shadow: 0 0 10px white, 0 0 20px var(--primary); }
+}
+
+#mosaic-container {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mosaic-piece {
+    position: absolute;
+    width: 48px;
+    height: 48px;
+    border-radius: 8px;
+    border: 2.5px solid rgba(255,255,255,0.9);
+    object-fit: cover;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.6);
+}
+
+.final-wish {
+    position: absolute;
+    bottom: 80px;
+    text-align: center;
+    width: 100%;
+    opacity: 0;
+    z-index: 10;
+}
+
+.dancing-text {
+    font-family: 'Dancing Script', cursive;
+    font-size: 4.5rem;
+    color: #fff;
+    text-shadow: 0 0 15px var(--primary), 0 0 30px var(--secondary), 0 0 45px var(--primary);
+    animation: gentleFloat 4s ease-in-out infinite;
+}
+
+@keyframes gentleFloat {
+    0%, 100% { transform: translateY(0) rotate(-2deg); }
+    50% { transform: translateY(-10px) rotate(2deg); }
+}
+
+/* Utility */
+.hidden { display: none !important; }
