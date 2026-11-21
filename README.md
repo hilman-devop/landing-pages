@@ -1,25 +1,55 @@
-# Kumpulan Landing Page Interaktif
+# Interactive Landing Pages
 
-> Kumpulan halaman statis dengan animasi kustom: intro efek glitch matrix, countdown real-time, dan tipografi playful.
+![HTML5](https://img.shields.io/badge/HTML5-2f81f7?style=flat) ![CSS3](https://img.shields.io/badge/CSS3-2f81f7?style=flat) ![JavaScript](https://img.shields.io/badge/JavaScript-2f81f7?style=flat)
 
-## ✨ Fitur
+> Koleksi eksperimen frontend untuk mengeksplorasi motion, typography, dan interaksi tanpa framework berat.
 
-- Animasi kustom tanpa framework
+## Tentang proyek
+
+Koleksi eksperimen frontend untuk mengeksplorasi motion, typography, dan interaksi tanpa framework berat. Dokumentasi ini dibuat sebagai panduan singkat untuk memahami ruang lingkup proyek, menjalankannya secara lokal, dan membaca batasan penggunaannya.
+
+## Fitur utama
+
+- Animasi glitch dan matrix intro
 - Countdown real-time
-- Responsif mobile
+- Layout responsif untuk mobile
+- Komponen visual tanpa dependency besar
+- Contoh landing page yang dapat dibuka langsung
 
-## 🛠 Tech Stack
+## Teknologi
 
-"HTML5" "CSS3" "Vanilla JavaScript"
+- HTML5
+- CSS3
+- JavaScript
 
-## 🚀 Menjalankan
+## Menjalankan secara lokal
 
+Prasyarat dan konfigurasi dapat berbeda menurut sistem operasi. Contoh langkah utama:
+
+```bash
+Buka file HTML yang ingin dilihat di browser, atau jalankan server statis lokal.
 ```
-# buka index.html langsung di browser
-```
 
-## 📌 Catatan
+## Struktur dan pengembangan
 
-Proyek ini merupakan bagian dari portofolio pribadi. Kode disusun untuk kebutuhan nyata,
-bukan sekadar demo, sehingga sebagian konfigurasi spesifik lingkungan mungkin perlu
-disesuaikan sebelum dijalankan.
+Mulai dari entry point dan folder konfigurasi proyek. Pisahkan credential lokal dari source code, tambahkan test untuk perubahan penting, dan gunakan environment variable untuk konfigurasi deployment.
+
+## Keamanan
+
+- Jangan commit API key, password, token, session ID, atau data pribadi.
+- Gunakan file environment lokal dan contoh konfigurasi tanpa nilai rahasia.
+- Uji perubahan pada environment development sebelum deployment.
+
+## Status
+
+Proyek ini merupakan bagian dari portofolio **Hilman Arifin Ilham** dan dapat dikembangkan sesuai kebutuhan penggunaan.
+
+> **Catatan:** Setiap halaman dapat memiliki entry point sendiri. Periksa folder terkait sebelum melakukan deployment.
+
+## Lisensi
+
+Belum ada lisensi open-source yang dinyatakan di repository ini. Hubungi pemilik repository sebelum menggunakan ulang atau mendistribusikan kode.
+
+---
+
+Dibuat oleh [Hilman Arifin Ilham](https://github.com/hilman-devop).
