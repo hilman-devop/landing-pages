@@ -17,7 +17,7 @@ const config = {
         'foto/10.jpeg'
     ],
     captions: [
-        "Happy Birthday Linung! 🎂",
+        "Happy Birthday! 🎂",
         "Makasih udah selalu nemenin aku...",
         "Setiap momen bareng kamu itu berarti banget ✨",
         "Kamu bener-bener luar biasa,",
